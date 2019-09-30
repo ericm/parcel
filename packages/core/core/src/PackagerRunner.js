@@ -178,6 +178,13 @@ export default class PackagerRunner {
 
     if (cacheKey != null) {
       await this.writeToCache(cacheKey, result.contents, map);
+
+      if (result.contents instanceof Readable) {
+        return {
+          contents: this.options.cache.getStream(getContentKey(cacheKey)),
+          map: result.map
+        };
+      }
     }
 
     return result;
@@ -420,6 +427,14 @@ export default class PackagerRunner {
       await this.options.cache.setStream(mapKey, blobToStream(map));
     }
   }
+}
+
+function getContentKey(cacheKey: string) {
+  return md5FromString(`${cacheKey}:content`);
+}
+
+function getMapKey(cacheKey: string) {
+  return md5FromString(`${cacheKey}:map`);
 }
 
 function writeFileStream(
