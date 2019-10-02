@@ -36,7 +36,7 @@ export default class ConfigLoader {
   }
 
   async loadParcelConfig(configRequest: ConfigRequest) {
-    let {filePath, env} = configRequest;
+    let {filePath, env, pipeline} = configRequest;
     let config = createConfig({
       searchPath: filePath,
       env
@@ -54,7 +54,7 @@ export default class ConfigLoader {
     let devDeps = [];
     switch (configRequest.meta.actionType) {
       case 'transformation':
-        devDeps = parcelConfig.getTransformerNames(filePath);
+        devDeps = parcelConfig.getTransformerNames(filePath, pipeline);
         break;
       case 'validation':
         devDeps = parcelConfig.getValidatorNames(filePath);

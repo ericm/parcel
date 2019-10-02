@@ -43,7 +43,8 @@ export type Target = {|
   env: Environment,
   sourceMap?: TargetSourceMapOptions,
   name: string,
-  publicUrl: ?string
+  publicUrl: ?string,
+  pipeline?: ?string
 |};
 
 export type Dependency = {|
@@ -60,7 +61,8 @@ export type Dependency = {|
   target: ?Target,
   sourceAssetId: ?string,
   sourcePath: ?string,
-  symbols: Map<Symbol, Symbol>
+  symbols: Map<Symbol, Symbol>,
+  pipeline?: ?string
 |};
 
 export type Asset = {|
@@ -145,7 +147,8 @@ export type AssetRequest = {|
   filePath: FilePath,
   env: Environment,
   sideEffects?: boolean,
-  code?: string
+  code?: string,
+  pipeline?: ?string
 |};
 
 // Asset group nodes are essentially used as placeholders for the results of an asset request
@@ -222,6 +225,7 @@ export type Config = {|
 export type ConfigRequest = {|
   filePath: FilePath,
   env: Environment,
+  pipeline?: ?string,
   plugin?: PackageName,
   //$FlowFixMe will lock this down more in a future commit
   meta: any,
