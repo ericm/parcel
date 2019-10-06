@@ -13,10 +13,7 @@ export default async function loadPlugin(
   pluginName: PackageName,
   resolveFrom: FilePath
 ) {
-  let {resolved, pkg} = await packageManager.resolve(
-    pluginName,
-    `${resolveFrom}/index`
-  );
+  let {resolved, pkg} = await packageManager.resolve(pluginName, resolveFrom);
 
   // Validate the engines.parcel field in the plugin's package.json
   let parcelVersionRange = pkg && pkg.engines && pkg.engines.parcel;
@@ -35,7 +32,7 @@ export default async function loadPlugin(
     );
   }
 
-  let plugin = await packageManager.require(resolved, `${resolveFrom}/index`);
+  let plugin = await packageManager.require(resolved, resolveFrom);
   plugin = plugin.default ? plugin.default : plugin;
   plugin = plugin[CONFIG];
   return plugin;
