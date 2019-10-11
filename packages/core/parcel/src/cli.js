@@ -49,7 +49,8 @@ var hmrOptions = {
     'set the hostname of HMR websockets, defaults to location.hostname of current window',
   '--https': 'serves files over HTTPS',
   '--cert <path>': 'path to certificate to use with HTTPS',
-  '--key <path>': 'path to private key to use with HTTPS'
+  '--key <path>': 'path to private key to use with HTTPS',
+  '--headers <header>': 'modify a http response header'
 };
 
 function applyOptions(cmd, options) {
